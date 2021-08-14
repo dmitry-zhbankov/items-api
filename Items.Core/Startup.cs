@@ -1,3 +1,4 @@
+using System.Net;
 using Items.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,6 +34,11 @@ namespace Items.Core
             }
 
             app.UseRouting();
+
+            app.UseExceptionHandler(builder => builder.Run(async context =>
+            {
+                context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
+            }));
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
