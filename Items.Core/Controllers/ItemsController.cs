@@ -35,13 +35,13 @@ namespace Items.Core.Controllers
         }
 
         [HttpPost]
-        public async Task CreateItem(Item item)
+        public async Task CreateItem([FromBody] Item item)
         {
             await _repository.Create(item);
         }
 
         [HttpPatch]
-        public async Task UpdateItem(Item item)
+        public async Task UpdateItem([FromBody] Item item)
         {
             await _repository.Update(item);
         }
