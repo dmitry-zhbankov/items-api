@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Items.DAL;
 using Items.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +20,12 @@ namespace Items.Core.Controllers
         public async Task<Item> GetItem(int id)
         {
             return await _repository.Get(id);
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<Item>> GetAllItems()
+        {
+            return await _repository.GetAll();
         }
 
         [HttpDelete("{id:int}")]

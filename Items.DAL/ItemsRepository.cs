@@ -1,4 +1,5 @@
-﻿using System.Data.SqlClient;
+﻿using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
 using Items.Models;
@@ -50,6 +51,13 @@ namespace Items.DAL
             {
                 Id = id
             });
+        }
+
+        public async Task<IEnumerable<Item>> GetAll()
+        {
+            const string sql = "SELECT * FROM Items";
+            var items = await _sqlConnection.QueryAsync<Item>(sql);
+            return items;
         }
     }
 }
