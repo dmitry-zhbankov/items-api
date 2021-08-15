@@ -15,9 +15,10 @@ namespace Items.Core
         private const string ItemsUiOriginsPolicyName = "ItemsUiOrigins";
         private const string ItemsDbConnectionStringName = "ItemsDb";
 
-        private static readonly string[] AllowedItemsUiOrigins = new string[]
+        private static readonly string[] AllowedItemsUiOrigins =
         {
-            "http://localhost:3000"
+            "http://localhost:3000",
+            "http://3.143.23.25"
         };
 
         public Startup(IConfiguration configuration)
@@ -30,11 +31,18 @@ namespace Items.Core
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<IItemsRepository>(new ItemsRepository(Configuration.GetConnectionString(ItemsDbConnectionStringName)));
+            services.AddSingleton<IItemsRepository>(
+                new ItemsRepository(Configuration.GetConnectionString(ItemsDbConnectionStringName)));
             services.AddCors(options =>
             {
-                options.AddPolicy(name: ItemsUiOriginsPolicyName,
-                    builder => { builder.WithOrigins(AllowedItemsUiOrigins); });
+                options.AddPolicy(ItemsUiOriginsPolicyName,
+                    builder =>
+                    {
+                        builder
+                            .WithOrigins(AllowedItemsUiOrigins)
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
             });
         }
 
