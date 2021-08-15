@@ -12,6 +12,13 @@ namespace Items.Core
     {
         public IConfiguration Configuration { get; }
 
+        private const string ItemsUiOriginsPolicyName = "ItemsUiOrigins";
+
+        private static readonly string[] AllowedItemsUiOrigins = new string[]
+        {
+            "http://localhost:3000"
+        };
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -23,6 +30,11 @@ namespace Items.Core
         {
             services.AddControllers();
             services.AddSingleton<IItemsRepository>(new ItemsRepository(Configuration.GetConnectionString("ItemsDb")));
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: ItemsUiOriginsPolicyName,
+                    builder => { builder.WithOrigins(AllowedItemsUiOrigins); });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +51,8 @@ namespace Items.Core
             {
                 context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
             }));
+
+            app.UseCors(ItemsUiOriginsPolicyName);
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
