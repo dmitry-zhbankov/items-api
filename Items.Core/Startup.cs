@@ -39,7 +39,8 @@ namespace Items.Core
                     builder =>
                     {
                         builder
-                            .WithOrigins(AllowedItemsUiOrigins)
+                            .AllowAnyOrigin()
+                            // .WithOrigins(AllowedItemsUiOrigins)
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
