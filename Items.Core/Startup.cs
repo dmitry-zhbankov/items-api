@@ -13,6 +13,7 @@ namespace Items.Core
         public IConfiguration Configuration { get; }
 
         private const string ItemsUiOriginsPolicyName = "ItemsUiOrigins";
+        private const string ItemsDbConnectionStringName = "ItemsDb";
 
         private static readonly string[] AllowedItemsUiOrigins = new string[]
         {
@@ -29,7 +30,7 @@ namespace Items.Core
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<IItemsRepository>(new ItemsRepository(Configuration.GetConnectionString("ItemsDb")));
+            services.AddSingleton<IItemsRepository>(new ItemsRepository(Configuration.GetConnectionString(ItemsDbConnectionStringName)));
             services.AddCors(options =>
             {
                 options.AddPolicy(name: ItemsUiOriginsPolicyName,
