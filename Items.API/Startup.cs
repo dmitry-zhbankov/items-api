@@ -1,4 +1,5 @@
 using System.Net;
+using System.Threading.Tasks;
 using Items.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Items.Core
+namespace Items.API
 {
     public class Startup
     {
@@ -57,9 +58,10 @@ namespace Items.Core
 
             app.UseRouting();
 
-            app.UseExceptionHandler(builder => builder.Run(async context =>
+            app.UseExceptionHandler(builder => builder.Run(context =>
             {
                 context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
+                return Task.CompletedTask;
             }));
 
             app.UseCors(ItemsUiOriginsPolicyName);

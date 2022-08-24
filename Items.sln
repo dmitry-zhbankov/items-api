@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Items.Core", "Items.Core\Items.Core.csproj", "{222ABFC6-637A-465B-846B-F3DA43195767}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Items.API", "Items.API\Items.API.csproj", "{222ABFC6-637A-465B-846B-F3DA43195767}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Items.DAL", "Items.DAL\Items.DAL.csproj", "{6D5AB0A3-0E02-4701-8718-76F3181C15BA}"
 EndProject

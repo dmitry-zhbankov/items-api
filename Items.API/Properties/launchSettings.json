@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Items.Core": {
+    "Items.API": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

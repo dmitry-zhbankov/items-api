@@ -4,7 +4,7 @@ using Items.DAL;
 using Items.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Items.Core.Controllers
+namespace Items.API.Controllers
 {
     [Route("items")]
     public class ItemsController : ControllerBase
