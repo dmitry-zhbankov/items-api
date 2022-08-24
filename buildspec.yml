@@ -12,3 +12,4 @@ phases:
   build:
     commands:
       - dotnet build
+      - dotnet test
