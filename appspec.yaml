@@ -1,0 +1,9 @@
+﻿version: 0.0
+Resources:
+  - TargetService:
+      Type: AWS::ECS::Service
+      Properties:
+        TaskDefinition: "arn:aws:us-east-2:770821692984:task-definition/items-api-task-defenition:2"
+        LoadBalancerInfo:
+          ContainerName: "items-api-container"
+          ContainerPort: 80
