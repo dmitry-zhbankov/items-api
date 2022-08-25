@@ -13,3 +13,8 @@ phases:
     commands:
       - dotnet build
       - dotnet test
+
+artifacts:
+  files:
+    - appspec.yml
+    - taskdef.json
