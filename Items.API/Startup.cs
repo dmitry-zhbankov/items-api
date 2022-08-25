@@ -46,6 +46,7 @@ namespace Items.API
                             .AllowAnyMethod();
                     });
             });
+            services.AddHealthChecks();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,11 +61,13 @@ namespace Items.API
 
             app.UseExceptionHandler(builder => builder.Run(context =>
             {
-                context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 return Task.CompletedTask;
             }));
 
             app.UseCors(ItemsUiOriginsPolicyName);
+
+            app.UseHealthChecks("/");
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
