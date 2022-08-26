@@ -1,20 +1,30 @@
 ﻿version: 0.2
 
 phases:
-  install:
-    runtime-versions:
-      dotnet: latest
-  
   pre_build:
     commands:
-      - dotnet restore
-  
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 770821692984.dkr.ecr.us-east-2.amazonaws.com
+      - REPOSITORY_URI=770821692984.dkr.ecr.us-east-2.amazonaws.com/items-api
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     commands:
-      - dotnet build
-      - dotnet test
-
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t $REPOSITORY_URI:latest .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker images...
+      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - echo Writing image definitions file...
+      - printf '[{"name":"items-api","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
   files:
-    - appspec.yml
-    - taskdef.json
+      - imagedefinitions.json
+      - appspec.yml
+      - taskdef.json
