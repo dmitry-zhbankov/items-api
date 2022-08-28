@@ -63,13 +63,13 @@
     }
   ],
   "placementConstraints": [],
-  "memory": "2048",
-  "taskRoleArn": null,
+  "memory": "4096",
+  "taskRoleArn": "arn:aws:iam::770821692984:role/ecsTaskExecutionRole",
   "compatibilities": [
     "EC2",
     "FARGATE"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-2:770821692984:task-definition/items-api-task-defenition:2",
+  "taskDefinitionArn": "arn:aws:ecs:us-east-2:770821692984:task-definition/items-api-task-defenition:13",
   "family": "items-api-task-defenition",
   "requiresAttributes": [
     {
@@ -100,6 +100,12 @@
       "targetId": null,
       "targetType": null,
       "value": null,
+      "name": "com.amazonaws.ecs.capability.task-iam-role"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
       "name": "ecs.capability.execution-role-ecr-pull"
     },
     {
@@ -120,9 +126,12 @@
     "FARGATE"
   ],
   "networkMode": "awsvpc",
-  "runtimePlatform": null,
-  "cpu": "1024",
-  "revision": 2,
+  "runtimePlatform": {
+    "operatingSystemFamily": "LINUX",
+    "cpuArchitecture": null
+  },
+  "cpu": "2048",
+  "revision": 13,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,
